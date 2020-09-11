@@ -1,0 +1,19 @@
+{
+  "name": "greenscreen",
+  "version": "1.0.0",
+  "description": "A tool for video meetings which exposes a virtual webcam that blurs backgrounds",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suyash458/greenscreen.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Suyash458/greenscreen/issues"
+  },
+  "homepage": "https://github.com/Suyash458/greenscreen#readme"
+}
