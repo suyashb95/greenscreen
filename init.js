@@ -1,9 +1,9 @@
 const bodyPix = require('@tensorflow-models/body-pix');
 const tfjs = require('@tensorflow/tfjs-node');
 const fs = require('fs');
-const cv = require('./lib/opencv.js')
+const logger = require('./utils/logger.js');
 
-console.log(tfjs.getBackend());
+logger.info(tfjs.getBackend());
 
 async function loadImage(path) {
   const file = await fs.promises.readFile(path);
@@ -11,8 +11,8 @@ async function loadImage(path) {
   return image;
 }
 
-async function segmentImage(file_name) {
-  const image = await loadImage(file_name);
+async function segmentImage(fileName) {
+  const image = await loadImage(fileName);
   const net = await bodyPix.load({
     architecture: 'MobileNetV1',
     outputStride: 16,
@@ -25,6 +25,7 @@ async function segmentImage(file_name) {
     internalResolution: 'medium',
     segmentationThreshold: 0.7,
   });
+  logger.info(personSegmentation);
 }
 
 segmentImage('./data/4.png');
