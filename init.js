@@ -16,16 +16,22 @@ async function segmentImage(fileName) {
   const net = await bodyPix.load({
     architecture: 'MobileNetV1',
     outputStride: 16,
-    multiplier: 0.75,
-    quantBytes: 2,
+    internalResolution: 'low',
+    multiplier: 0.50,
+    quantBytes: 2
   });
 
   const personSegmentation = await net.segmentPerson(image, {
     flipHorizontal: false,
-    internalResolution: 'medium',
+    internalResolution: 'low',
     segmentationThreshold: 0.7,
   });
+<<<<<<< Updated upstream
   logger.info(personSegmentation);
+=======
+
+  console.log(personSegmentation);
+>>>>>>> Stashed changes
 }
 
 segmentImage('./data/4.png');
