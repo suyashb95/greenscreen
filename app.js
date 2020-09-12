@@ -3,9 +3,12 @@ const Segmentor = require('./lib/segmentor.js');
 const logger = require('./utils/logger.js');
 
 const location = './data/webcam/shot.jpg';
-const webcam = new WebCam(1280, 780, 30, logger);
+
+const webcam = new WebCam(640, 480, 30, logger);
 const segmentor = new Segmentor(logger);
+
 segmentor.initializeNet();
+segmentor.initializeCanvas();
 
 async function main(outputLocation) {
     webcam.capture(outputLocation)
