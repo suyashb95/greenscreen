@@ -13,7 +13,12 @@ segmentor.initializeCanvas();
 async function main(outputLocation) {
     webcam.capture(outputLocation)
     .then(image => {
-        segmentor.segmentImage(image);
+        console.time('segment-blur-time');
+        segmentor.segmentImage(image)
+        .then(segmentation => {
+            segmentor.blurBackground(image, segmentation);
+            console.timeEnd('segment-blur-time');
+        })
     })
     // eslint-disable-next-line no-console
 }
