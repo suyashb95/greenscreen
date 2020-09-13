@@ -1,5 +1,19 @@
 const tf = require('@tensorflow/tfjs');
 const bodyPix = require('@tensorflow-models/body-pix');
+const stream = require('stream');
+const FfmpegCommand = require('fluent-ffmpeg');
+
+const files = [];
+
+const fileStream = new stream.Readable({
+  _read: () => {
+    if (files.length > 0) {
+      return files.shift();
+    }
+  }
+});
+
+let ffmpegCommand = FfmpegCommand(fileStream, { option: "-i"});
 
 function drawBlurredOutput(net, canvas, video) {
   console.time('segment')
@@ -15,6 +29,7 @@ function drawBlurredOutput(net, canvas, video) {
       segmentations
     );
     console.timeEnd('segment')
+    canvas.toBlob((blob) => files.push(blob));
     requestAnimationFrame(() => drawBlurredOutput(net, canvas, video));
   });
 }
@@ -23,8 +38,7 @@ async function loadApp() {
   let video = document.querySelector('video');
   let outputCanvas = document.getElementById('output');
 
-  let videoStream = await navigator.mediaDevices.getUserMedia({ audio: false, video: true });
-  const net = await bodyPix.load({
+  let videoStream = await navigator.mediaDevices.getUserMedia({ audio: false, video: {deviceId: 'c45ab612fef8aecb28e27b21418f11f635372661772205800f6bb1fc6f8ff655'} });  const net = await bodyPix.load({
     architecture: 'MobileNetV1',
     outputStride: 16,
     internalResolution: 'low',

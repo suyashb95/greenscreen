@@ -1,6 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow } = require('electron')
+const {app, BrowserWindow, protocol} = require('electron')
 const path = require('path')
+
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'http', privileges: { standard: true, secure: true, stream: true, bypassCSP: true } },
+  { scheme: 'https', privileges: { standard: true, secure: true, stream: true, bypassCSP: true } }
+])
 
 function createWindow () {
   // Create the browser window.

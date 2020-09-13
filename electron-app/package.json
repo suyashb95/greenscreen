@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@tensorflow-models/body-pix": "^2.0.5",
-    "@tensorflow/tfjs": "^2.3.0"
+    "@tensorflow/tfjs": "^2.3.0",
+    "fluent-ffmpeg": "^2.1.2"
   }
 }
