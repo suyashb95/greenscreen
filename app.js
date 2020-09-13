@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const WebCam = require('./lib/webcam.js');
 const Segmentor = require('./lib/segmentor.js');
 const logger = require('./utils/logger.js');
@@ -12,14 +13,14 @@ segmentor.initializeCanvas();
 
 async function main(outputLocation) {
     webcam.capture(outputLocation)
-    .then(image => {
-        console.time('segment-blur-time');
-        segmentor.segmentImage(image)
-        .then(segmentation => {
-            segmentor.blurBackground(image, segmentation);
-            console.timeEnd('segment-blur-time');
-        })
-    })
+        .then((image) => {
+            console.time('segment-blur-time');
+            segmentor.segmentImage(image)
+                .then((segmentation) => {
+                    segmentor.blurBackground(image, segmentation);
+                    console.timeEnd('segment-blur-time');
+                });
+        });
     // eslint-disable-next-line no-console
 }
 
